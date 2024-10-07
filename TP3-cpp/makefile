@@ -4,11 +4,11 @@ LINK.o = $(LINK.cc)
 
 .PHONY: all clean
 
-all: main
+all: $(EXEC)
 
-main: main.o
+main: main.o matrix.o
 
-main.o: main.cpp
+main.o: main.cpp matrix.cpp
 
 %.o: %.cpp %.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
