@@ -1,17 +1,29 @@
+# Compilador e flags
+# CXX = g++
 CXX = clang++
 CXXFLAGS = -pedantic -std=c++11 -Wall -Wextra
-LINK.o = $(LINK.cc)
 
-.PHONY: all clean
+INCLUDE_DIR = include
+SRC_DIR = src
+BUILD_DIR = build
+
+
+SRCS = $(SRC_DIR)/main.cpp $(SRC_DIR)/matrix.cpp
+OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+
+EXEC = $(BUILD_DIR)/main
 
 all: $(EXEC)
 
-main: main.o matrix.o
+$(EXEC): $(OBJS)
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(EXEC)
 
-main.o: main.cpp matrix.cpp
-
-%.o: %.cpp %.h
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 clean:
-	rm -f main *.o
+	rm -rf $(BUILD_DIR)
+
+.PHONY: all clean
