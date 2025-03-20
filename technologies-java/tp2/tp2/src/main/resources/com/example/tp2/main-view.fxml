@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.example.tp2.ImageViewer?>
+
+<GridPane xmlns:fx="http://javafx.com/javafx"
+          xmlns="http://javafx.com/javafx/8.0"
+          fx:controller="com.example.tp2.MainController"
+          hgap="15"
+          vgap="15"
+          style="-fx-background-color: #767171;"
+          GridPane.hgrow="ALWAYS"
+          GridPane.vgrow="ALWAYS">
+
+    <VBox VBox.vgrow="ALWAYS" spacing="10" style="-fx-background-color: #f8b313; -fx-pref-height: 600;-fx-pref-width: 800;">
+
+        <!-- Botão de seleção de diretório no topo, alinhado à direita -->
+        <HBox spacing="10" style="-fx-padding: 10;">
+            <Button text="📂 Choisir un répertoire" fx:id="btnSelectDirectory" onAction="#selectDirectory"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="Nombre d'images: " />
+            <Label fx:id="lblImageCount" text="0/0" style="-fx-font-weight: bold;"/>
+        </HBox>
+
+        <!-- Image Viewer centralizado -->
+        <StackPane BorderPane.alignment="CENTER"
+                   style="-fx-border-radius: 5; -fx-background-color: #f0f0f0; -fx-padding: 5;">
+            <ImageViewer fx:id="imageViewer" fitHeight="300" fitWidth="300" preserveRatio="true" smooth="true" style="-fx-pref-height: 500; -fx-pref-width: 500"/>
+        </StackPane>
+
+        <!-- Controles ancorados na parte inferior -->
+        <VBox spacing="15" alignment="BOTTOM_CENTER" style="-fx-background-color: #434040; -fx-padding: 20;" VBox.vgrow="ALWAYS">
+
+            <!-- Buttons de navegação -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="⏮ Premier" onAction="#showFirstImage"/>
+                <Button text="⬅ Précédent" onAction="#showPreviousImage"/>
+                <Button text="➡ Suivant" onAction="#showNextImage"/>
+                <Button text="⏭ Dernier" onAction="#showLastImage"/>
+            </HBox>
+
+            <!-- Checkboxes -->
+            <HBox spacing="20" alignment="CENTER">
+                <CheckBox text="🔁 Lecture en boucle" fx:id="chkLoopMode" style="-fx-text-fill: white;"/>
+                <CheckBox text="🎞 Mode diaporama" fx:id="chkSlideshowMode" onAction="#toggleSlideshow" style="-fx-text-fill: white;"/>
+            </HBox>
+
+            <!-- Slider de duração do slideshow -->
+            <VBox spacing="5" alignment="CENTER" style="-fx-padding: 20;">
+                <Label text="⏳ Durée du diaporama (sec)" style="-fx-text-fill: white;"/>
+                <Slider fx:id="sliderDuration" min="1" max="10" value="5" showTickLabels="true" showTickMarks="true"
+                        majorTickUnit="1" minorTickCount="0" snapToTicks="true" style="-fx-text-fill: white;"/>
+            </VBox>
+        </VBox>
+    </VBox>
+</GridPane>

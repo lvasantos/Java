@@ -1,0 +1,76 @@
+# TP 1 RMI & Sockets
+
+### Luciana Victória Adrião dos Santos - CYBERIA
+
+1. TCP Sockets
+     A server that lists files in a remote directory upon client request.
+2. RMI(Remote Method Invocation)
+    A system that includes a chat server and a time server.
+
+### Run
+
+#### Compile the files
+
+Before executing, compile all Java files. To compile java files:
+
+**To clean old compiled files:**
+```find out -name "*.class" -delete```
+
+**For Sockets:**
+`javac -d out Sockets/*.java`
+
+**For RMI(‼️ must have javafx):**
+```javac --module-path /Path/To/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -d out RMI/*.java ```
+
+#### 1. Sockets - File Listing
+The Client sends the name of a directory and a server returns the number and names of the files in the directory.
+
+##### How to Run
+Open two terminals and run the following commands:
+1. In the first terminal. Server
+
+`java Sockets.Server`
+
+2. In the second terminal. Client
+
+`java Sockets.Client`
+
+Enter a valid path to see the listed files.
+![Alt text](image.png)
+
+
+#### 2. RMI(Remote Method Invocation)
+The system includes a Time Server and a Chat Server, which allow multiple clients to communicate.
+##### How to Run
+Start **rmiregistry** in the out folder before running the servers, kill any already existing: 
+```killall rmiregistry
+cd out
+rmiregistry 1099 &
+cd ..
+```
+
+Start the **Chat Server**:
+```java -cp out RMI.ChatServer```
+
+**[Atention]** Be sure to have JavaFX installed.
+To run the chat **GUI**:
+```java --module-path /Path/To/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -cp out RMI.ChatClientGUI```
+For a graphichal interface use:
+``` java RMI.ChatClientGUI```
+![Alt text](image-1.png)
+![Alt text](image-3.png)
+
+Run the Chat Clients(**CLI**):
+`java -cp out RMI.ClientChat`
+The client will ask for a **username**, then allow you to send messages. To disconnect from the chat, type:
+`exit`
+![Alt text](image-2.png)
+
+Don't forget to close any **rmiregistry** running:
+```killall rmiregistry```
+
+Start the Time Server:
+`java -cp out RMI.ServerHour`
+
+Run the Time Client:
+`java -cp out RMI.ClientHour`
